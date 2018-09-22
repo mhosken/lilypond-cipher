@@ -58,8 +58,8 @@ cipherScore = \score {
             \harmonies
         >>
         \new CipherStaff = "one" <<
-            \context CipherVoice = "ciphersop" { \transpose g c, { \prepCipher \melody } }
-            \context CipherTwo = "cipheralto" { \transpose g c { \prepCipher \alto } } 
+            \context CipherVoice = "ciphersop" { \prepCipher \melody }
+            \context CipherTwo = "cipheralto" { \prepCipher \alto } 
             \new NullVoice = "soprano" { \melody }
         >>
     >>
@@ -72,8 +72,8 @@ cipherScore = \score {
     >>
     \context StaffGroup = "bottom" <<
         \new CipherStaff = "three" << 
-            \context CipherVoice { \transpose g c { \prepCipher \tenor } }
-            \context CipherTwo { \transpose g c' { \prepCipher \bass } }
+            \context CipherVoice { \prepCipher \tenor }
+            \context CipherTwo { \prepCipher \bass }
         >> 
     >>
 >>
@@ -102,8 +102,8 @@ cipherOuterScore = \score {
             \harmonies
         >>
         \new CipherStaff = "one" <<
-            \context CipherVoice = "ciphersop" { \transpose g c, { \prepCipher \melody } }
-            \context CipherTwo = "cipheralto" { \transpose g c { \prepCipher \alto } } 
+            \context CipherVoice = "ciphersop" { \prepCipher \melody }
+            \context CipherTwo = "cipheralto" { \prepCipher \alto } 
         >>
         \context Staff = upper <<
           \context Voice = soprano { \voiceOne \melody }
@@ -124,8 +124,8 @@ cipherOuterScore = \score {
             \context Voice = basses { << \voiceTwo \bass >> }
         >>
         \new CipherStaff = "three" << 
-            \context CipherVoice { \transpose g c { \prepCipher \tenor } }
-            \context CipherTwo { \transpose g c' { \prepCipher \bass } }
+            \context CipherVoice { \prepCipher \tenor }
+            \context CipherTwo { \prepCipher \bass }
         >> 
     >>
 >>
@@ -158,8 +158,8 @@ cipherInnerScore = \score {
           \context Voice = altos { \voiceTwo \alto } 
         >>
         \new CipherStaff = "one" <<
-            \context CipherVoice = "ciphersop" { \transpose g c, { \prepCipher \melody } }
-            \context CipherTwo = "cipheralto" { \transpose g c { \prepCipher \alto } } 
+            \context CipherVoice = "ciphersop" { \prepCipher \melody }
+            \context CipherTwo = "cipheralto" { \prepCipher \alto } 
         >>
     >>
     \new Lyrics \lyricsto soprano <<
@@ -171,8 +171,8 @@ cipherInnerScore = \score {
     >>
     \context StaffGroup = "bottom" <<
         \new CipherStaff = "three" << 
-            \context CipherVoice { \transpose g c { \prepCipher \tenor } }
-            \context CipherTwo { \transpose g c' { \prepCipher \bass } }
+            \context CipherVoice { \prepCipher \tenor }
+            \context CipherTwo { \prepCipher \bass }
         >> 
         \context Staff = lower <<
             \clef bass
