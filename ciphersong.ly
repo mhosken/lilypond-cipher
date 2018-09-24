@@ -7,34 +7,49 @@ condmus = #(define-music-function (parser location sym music) (string? string?)
         (ly:parser-include-string music))
     (make-music 'SequentialMusic 'void #t))
 
+
+cipherChords = \new ChordNames \with {
+        % \override ChordName #'font-size = #-1
+        \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2) } <<
+    \set chordChanges = ##t
+    \harmonies
+>>
+cipherWesternUpper = \context Staff = upper <<
+  \context Voice = soprano { \voiceOne \melody }
+  \context Voice = altos { \voiceTwo \alto }
+>>
+cipherWesternLower = \context Staff = lower <<
+    \clef bass
+    \context Voice = tenors { << \voiceOne \tenor >> }
+    \context Voice = basses { << \voiceTwo \bass >> }
+>>
+cipherLyrics = \new Lyrics \lyricsto soprano <<
+    \condmus "verseOne" "{ \verseOne }"
+    \condmus "verseTwo" "\\new Lyrics \lyricsto soprano { \verseTwo }"
+    \condmus "verseThree" "\\new Lyrics \lyricsto soprano { \verseThree }"
+    \condmus "verseFour" "\\new Lyrics \lyricsto soprano { \verseFour }"
+    \condmus "verseFive" "\\new Lyrics \lyricsto soprano { \verseFive }"
+>>
+cipherCipherUpper = \new CipherStaff = "one" <<
+    \context CipherVoice = "ciphersop" { \prepCipher \melody }
+    \context CipherTwo = "cipheralto" { \prepCipher \alto }
+    \new NullVoice = "soprano" { \melody }
+>>
+cipherCipherLower = \new CipherStaff = "three" <<
+    \context CipherVoice { \prepCipher \tenor }
+    \context CipherTwo { \prepCipher \bass }
+>>
+
 westernScore = \score {
 \header { }
 \context ChoirStaff <<
     \context StaffGroup = "top" <<
-        \new ChordNames \with { 
-                % \override ChordName #'font-size = #-1
-                \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2) } <<
-            \set chordChanges = ##t
-            \harmonies
-        >>
-        \context Staff = upper <<
-          \context Voice = soprano { \voiceOne \melody }
-          \context Voice = altos { \voiceTwo \alto } 
-        >>
+        \cipherChords
+        \cipherWesternUpper
     >>
-    \new Lyrics \lyricsto soprano <<
-        { \verseOne }
-        \condmus "verseTwo" "\\new Lyrics \lyricsto soprano { \verseTwo }"
-        \condmus "verseThree" "\\new Lyrics \lyricsto soprano { \verseThree }"
-        \condmus "verseFour" "\\new Lyrics \lyricsto soprano { \verseFour }"
-        \condmus "verseFive" "\\new Lyrics \lyricsto soprano { \verseFive }"
-    >>
+    \cipherLyrics
     \context StaffGroup = "bottom" <<
-        \context Staff = lower <<
-            \clef bass
-            \context Voice = tenors { << \voiceOne \tenor >> }
-            \context Voice = basses { << \voiceTwo \bass >> }
-        >>
+        \cipherWesternLower
     >>
 >>
 
@@ -51,30 +66,12 @@ cipherScore = \score {
 \header { }
 \context ChoirStaff <<
     \context StaffGroup = "top" <<
-        \new ChordNames \with { 
-                % \override ChordName #'font-size = #-1
-                \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2) } <<
-            \set chordChanges = ##t
-            \harmonies
-        >>
-        \new CipherStaff = "one" <<
-            \context CipherVoice = "ciphersop" { \prepCipher \melody }
-            \context CipherTwo = "cipheralto" { \prepCipher \alto } 
-            \new NullVoice = "soprano" { \melody }
-        >>
+        \cipherChords
+        \cipherCipherUpper
     >>
-    \new Lyrics \lyricsto soprano <<
-        { \verseOne }
-        \condmus "verseTwo" "\\new Lyrics \lyricsto soprano { \verseTwo }"
-        \condmus "verseThree" "\\new Lyrics \lyricsto soprano { \verseThree }"
-        \condmus "verseFour" "\\new Lyrics \lyricsto soprano { \verseFour }"
-        \condmus "verseFive" "\\new Lyrics \lyricsto soprano { \verseFive }"
-    >>
+    \cipherLyrics
     \context StaffGroup = "bottom" <<
-        \new CipherStaff = "three" << 
-            \context CipherVoice { \prepCipher \tenor }
-            \context CipherTwo { \prepCipher \bass }
-        >> 
+        \cipherCipherLower
     >>
 >>
 
@@ -95,38 +92,14 @@ cipherOuterScore = \score {
 \header { }
 \context ChoirStaff <<
     \context StaffGroup = "top" <<
-        \new ChordNames \with { 
-                \override ChordName #'font-size = #-1
-                \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2) } <<
-            \set chordChanges = ##t
-            \harmonies
-        >>
-        \new CipherStaff = "one" <<
-            \context CipherVoice = "ciphersop" { \prepCipher \melody }
-            \context CipherTwo = "cipheralto" { \prepCipher \alto } 
-        >>
-        \context Staff = upper <<
-          \context Voice = soprano { \voiceOne \melody }
-          \context Voice = altos { \voiceTwo \alto } 
-        >>
+        \cipherChords
+        \cipherCipherUpper
+        \cipherWesternUpper
     >>
-    \new Lyrics \lyricsto soprano <<
-        { \verseOne }
-        \condmus "verseTwo" "\\new Lyrics \lyricsto soprano { \verseTwo }"
-        \condmus "verseThree" "\\new Lyrics \lyricsto soprano { \verseThree }"
-        \condmus "verseFour" "\\new Lyrics \lyricsto soprano { \verseFour }"
-        \condmus "verseFive" "\\new Lyrics \lyricsto soprano { \verseFive }"
-    >>
+    \cipherLyrics
     \context StaffGroup = "bottom" <<
-        \context Staff = lower <<
-            \clef bass
-            \context Voice = tenors { << \voiceOne \tenor >> }
-            \context Voice = basses { << \voiceTwo \bass >> }
-        >>
-        \new CipherStaff = "three" << 
-            \context CipherVoice { \prepCipher \tenor }
-            \context CipherTwo { \prepCipher \bass }
-        >> 
+        \cipherWesternLower
+        \cipherCipherLower
     >>
 >>
 
@@ -147,38 +120,14 @@ cipherInnerScore = \score {
 \header { }
 \context ChoirStaff <<
     \context StaffGroup = "top" <<
-        \new ChordNames \with { 
-                \override ChordName #'font-size = #-1
-                \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2) } <<
-            \set chordChanges = ##t
-            \harmonies
-        >>
-        \context Staff = upper <<
-          \context Voice = soprano { \voiceOne \melody }
-          \context Voice = altos { \voiceTwo \alto } 
-        >>
-        \new CipherStaff = "one" <<
-            \context CipherVoice = "ciphersop" { \prepCipher \melody }
-            \context CipherTwo = "cipheralto" { \prepCipher \alto } 
-        >>
+        \cipherChords
+        \cipherWesternUpper
+        \cipherCipherUpper
     >>
-    \new Lyrics \lyricsto soprano <<
-        { \verseOne }
-        \condmus "verseTwo" "\\new Lyrics \lyricsto soprano { \verseTwo }"
-        \condmus "verseThree" "\\new Lyrics \lyricsto soprano { \verseThree }"
-        \condmus "verseFour" "\\new Lyrics \lyricsto soprano { \verseFour }"
-        \condmus "verseFive" "\\new Lyrics \lyricsto soprano { \verseFive }"
-    >>
+    \cipherLyrics
     \context StaffGroup = "bottom" <<
-        \new CipherStaff = "three" << 
-            \context CipherVoice { \prepCipher \tenor }
-            \context CipherTwo { \prepCipher \bass }
-        >> 
-        \context Staff = lower <<
-            \clef bass
-            \context Voice = tenors { << \voiceOne \tenor >> }
-            \context Voice = basses { << \voiceTwo \bass >> }
-        >>
+        \cipherCipherLower
+        \cipherWesternLower
     >>
 >>
 \layout {

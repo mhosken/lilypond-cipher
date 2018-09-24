@@ -11,6 +11,7 @@
 \include "english.ly"
 
 #(set-global-staff-size 16)
+\pointAndClickOff
 
 \header {
     title = "I Need Thee Ev'ry Hour"
@@ -44,7 +45,7 @@ melody = \relative c'' {
 alto = \relative c' {
   \world
   b4 | d4. c8 b a | b2 b4 | c2 c4 | b2 d4 | d4. d8 d d | d2 d4 | d4.( e8) d[ cs] |
-  d2 d4 | d4. d8 \tuplet 3/2 { g fs g } | g4 fs2 | d4. d8 d d | d4 d d | e4. e8 e c | b4 d e |
+  d2 d4 | d4. d8 \tuplet 3/2 { g[ fs g] } | g4 fs2 | d4. d8 d d | d4 d d | e4. e8 e c | b4 d e |
   d4.( b8) c4 | b2 
 }
 

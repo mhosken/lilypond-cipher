@@ -207,13 +207,17 @@ CipherVoiceAdjust = #(define-music-function (parser location lang) (string?)
               ((stop-translation-timestep translator)
                   (set! events (list))))))
         \override Accidental #'font-size = #-4
-        \override Accidental #'Y-offset = #1
+        \override Accidental #'Y-offset = #0
         \override Stem #'length-fraction = #0.1
         \override Beam #'beam-thickness = #0.1
         \override Beam #'length-fraction = #0.5
         \override Tie #'staff-position = #3
         \override Slur #'staff-position = #3.0
+        \override Slur #'height-limit = #0.5
         \override TupletBracket #'bracket-visibility = ##t
+        \override TupletBracket #'direction = #UP
+        \override TupletBracket #'padding = #0
+        \override TupletBracket #'outside-staff-priority = #1
         \override NoteHead #'font-size = #2
         \override NoteHead #'stencil = #(lambda (grob) (let*
             ((e (ly:grob-property grob 'extra-offset '(0 . 0)))
@@ -242,7 +246,8 @@ CipherVoiceAdjust = #(define-music-function (parser location lang) (string?)
         \CipherVoice
         \name CipherTwo
         \alias CipherVoice
-        \override NoteHead #'Y-offset = #-3
+        \override NoteHead #'Y-offset = #-2
+        \override TupletBracket #'direction = #DOWN
     }
 
 CipherStaffAdjust = #(define-music-function (parser location lang) (string?)
@@ -257,11 +262,13 @@ CipherStaffAdjust = #(define-music-function (parser location lang) (string?)
         \accepts "CipherVoice"
         \accepts "CipherTwo"
         \remove "Clef_engraver"
+        \remove "Key_engraver"
         \CipherStaffAdjust \CipherLanguage
         \override StaffSymbol #'line-count = #0
-        \override BarLine #'bar-extent = #'(-5 . 4)
-        \override StaffSymbol #'Y-extent = #'(-2.5 . 2.5)
-        \override VerticalAxisGroup #'minimum-Y-extent = #'(-2.5 . 2.5)
+        \override BarLine #'bar-extent = #'(-2.5 . 3.5)
+        \override StaffSymbol #'Y-extent = #'(-1.5 . 1.5)
+        \override StaffGrouper #'staff-staff-spacing = #'((minimum-distance . 3) (padding . 1) (stretchability . 5) (basic-distance . 3))
+        \override Staff #'padding = #0
     }
 }
 
