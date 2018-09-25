@@ -10,3 +10,6 @@ complete list.
 
 See `Need.ly` for an example of usage. `ciphersong.ly` is a template for songs with piano
 and words.
+
+This is a sample of the Jianpu dialect of cipher, commonly used in China:
+![Jianpu Sample](Need_jianpu_sample.png)
