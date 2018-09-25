@@ -110,7 +110,7 @@ harmonies = \chordmode {
 
 % CipherLanguage = "jianpu"
 % CipherLanguage = "lisu"
-CipherLanguage = "kepatihan"
+% CipherLanguage = "kepatihan"
 
 \include "ciphersong.ly"
 
