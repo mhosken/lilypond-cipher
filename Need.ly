@@ -7,6 +7,9 @@
 % http://creativecommons.org/licenses/by-nc/2.5/
 % Attribution: Geoff Horton
 
+% Minor modifications that makes this typesetting unsuitable for actual music
+% The modifications are there to test various typesetting issues.
+
 \version "2.18.0"
 \include "english.ly"
 
@@ -51,7 +54,7 @@ alto = \relative c' {
 
 tenor = \relative c {
   \world
-  d4 | g4. e8 d d | d2 d4 | e2 e8[ g] | g2 fs4 | fs4 r8 g8 fs fs | g2 b4 | a2 a8[ g] |
+  d4 | g4. e8 d d | d2 d4 | e2 \tuplet 3/2 { e8[ f g] } | g2 fs4 | fs4 r8 g8 fs fs | g2 b4 | a2 a8[ g] |
   fs2 g4 | g4. b8 e d | d4 r2 | c4. b8 d c | c4 b g | g4. g8 g g | g4 g g |
   g2 fs4 | g2
 }
@@ -106,7 +109,8 @@ harmonies = \chordmode {
 }
 
 % CipherLanguage = "jianpu"
-CipherLanguage = "lisu"
+% CipherLanguage = "lisu"
+CipherLanguage = "kepatihan"
 
 \include "ciphersong.ly"
 

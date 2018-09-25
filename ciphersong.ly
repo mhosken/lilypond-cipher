@@ -1,12 +1,5 @@
+
 \include "cipher.ly"
-
-condmus = #(define-music-function (parser location sym music) (string? string?)
-    (define (my1 x y) x)
-    (if (> (length (filter (lambda (x) (string=? (symbol->string x) sym)) 
-                           (hash-map->list my1 (struct-ref (current-module) 0)))) 0)
-        (ly:parser-include-string music))
-    (make-music 'SequentialMusic 'void #t))
-
 
 cipherChords = \new ChordNames \with {
         % \override ChordName #'font-size = #-1
@@ -31,13 +24,13 @@ cipherLyrics = \new Lyrics \lyricsto soprano <<
     \condmus "verseFive" "\\new Lyrics \lyricsto soprano { \verseFive }"
 >>
 cipherCipherUpper = \new CipherStaff = "one" <<
-    \context CipherVoice = "ciphersop" { \prepCipher \melody }
-    \context CipherTwo = "cipheralto" { \prepCipher \alto }
+    \context CipherVoice = "ciphersop" { \prepCipher c'' \melody }
+    \context CipherTwo = "cipheralto" { \prepCipher c' \alto }
     \new NullVoice = "soprano" { \melody }
 >>
 cipherCipherLower = \new CipherStaff = "three" <<
-    \context CipherVoice { \prepCipher \tenor }
-    \context CipherTwo { \prepCipher \bass }
+    \context CipherVoice { \prepCipher c \tenor }
+    \context CipherTwo { \prepCipher c \bass }
 >>
 
 westernScore = \score {
